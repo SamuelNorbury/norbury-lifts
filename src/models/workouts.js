@@ -13,61 +13,59 @@ export default {
     isWarmingUp: true,
     isFinished: false,
     hasStarted: false,
-    history: initState.history,
-    weight: initState.weight,
     currentWeight: initState.currentWeight,
+    goalWeight: initState.goalWeight,
   },
 
   /**
    * Reducers
    */
   reducers: {
-    startWorkout: (state, payload) => ({
+    startWorkout: state => ({
       ...state,
       isWarmingUp: false,
       hasStarted: true,
+      currentExercise:
+      goalWeight: calculateCurrentWeight(currentWorkoutInfo[currentExerciseIndex + 1], history),
     }),
 
-    startExercise: (state, payload) => ({
+    startExercise: state => ({
       ...state,
       isWarmingUp: true,
+      currentWeight: state.goalWeight * schedule['warmup-start-ratio'],
     }),
 
-    completeWarmupSet: (state, payload) => {
-      if (payload.performance.weight < 0.5 * state.weight) {
-        // Another warmup set
+    completeSet: ({
+      isWarmingUp, currentWeight, goalWeight,
+      currentExercise, currentVariant, currentWorkout, currentSet, ...state
+    }) => {
+      if (isWarmingUp) {
+      // Warmup set completed
+        if (payload.performance.weight < schedule['warmup-ratio'] * weight) {
+          // continue warming up
+          return {
+            ...state,
+            currentWeight: state.currentWeight * 1.2,
+          };
+        }
+        // end warmup and go to real workout.
         return {
           ...state,
-          currentWeight: state.currentWeight * 1.2,
+          currentWeight: state.goalWeight,
+          isWarmingUp: false,
         };
       }
-      // The real exercise begins.
-      return {
-        ...state,
-        isWarmingUp: false,
-        currentWeight: weight,
-      };
-    },
 
-
-    completeSet: ({
-      currentExercise, currentVariant, currentWorkout, currentSet, history, ...state
-    }, payload) => {
       const currentWorkoutInfo = schedule.workouts[currentWorkout][currentVariant];
       const currentExerciseIndex = currentWorkoutInfo.indexOf(currentExercise);
       const currentExerciseInfo = schedule.exercise[currentExercise];
       const numberOfSets = currentExerciseInfo.sets[currentVariant].length;
 
       if (currentSet === numberOfSets) {
-        if (currentExerciseIndex === currentWorkoutInfo.length) {
+        if (currentExerciseIndex + 1 === currentWorkoutInfo.length) {
           // We reached the end of this workout.
           return {
             ...state,
-            history: {
-              ...history,
-              // Save performance for future calculations
-              [currentExercise]: payload.performance,
-            },
             isFinished: true,
           };
         }
@@ -78,9 +76,8 @@ export default {
           currentSet: 1,
           currentExercise: currentWorkoutInfo[currentExerciseIndex + 1],
           isWarmingUp: true,
-          // Save performance for future calculations
-          [currentExercise]: payload.performance,
-
+          history: history.slice(0, 5).unshift(payload.performance),
+          goalWeight: calculateCurrentWeight(currentWorkoutInfo[currentExerciseIndex + 1], history),
         };
       }
 
@@ -88,21 +85,29 @@ export default {
       return {
         ...state,
         currentSet: currentSet + 1,
-        history: {
-          ...history,
-          [currentExercise]: payload.performance,
-        },
       };
     },
 
-    finishWorkout: (state, payload) => {
-      const currentWorkoutInfo = schedule.workouts[currentWorkout][currentVariant];
-      const currentExerciseIndex = currentWorkoutInfo.indexOf(currentExercise);
+    finishWorkout: ({
+      currentWorkout, currentVariant, currentExercise, ...state
+    }) => {
+      const workoutsInOrder = Object.keys(schedule.workouts);
+      const currentWorkoutIndex = workoutsInOrder.indexOf(currentWorkout);
+
+      if (currentWorkoutIndex + 1 === workoutsInOrder.length) {
+        return {
+          ...state,
+          isFinished: false,
+          // Set next workout, starting from the first again
+          currentWorkout: workoutsInOrder[0],
+        };
+      }
+
       return {
         ...state,
-        isFinished: true,
-        // Set next workout as current
-        currentWorkout: schedule.workouts,
+        isFinished: false,
+        // Set next workout
+        currentWorkout: workoutsInOrder[currentWorkoutIndex + 1],
       };
     },
   },
