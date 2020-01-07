@@ -1,7 +1,11 @@
 export default {
-  'warmup-start-ratio': 0.5,
-  'warmup-ratio': 0.7,
+  warmup: {
+    'start-ratio': 0.5,
+    ratio: 0.7,
+    'increment-factor': 1.2,
+  },
   'variant-switch-count': 30,
+
   variants: [
     'A',
     'B',
