@@ -1,10 +1,11 @@
 export default {
   warmup: {
-    'start-ratio': 0.5,
+    startRatio: 0.5,
     ratio: 0.7,
-    'increment-factor': 1.2,
+    incrementFactor: 1.2,
   },
-  'variant-switch-count': 30,
+  variantSwitchCount: 30,
+  historyKeepLength: 15,
 
   variants: [
     'A',
@@ -12,18 +13,18 @@ export default {
   ],
 
   workouts: {
-    'legs-shoulders': {
-      A: ['squat', 'overhead-press', 'rear-fly'],
-      B: ['squat', 'overhead-press', 'rear-fly', 'lateral-raise'],
+    legsShoulders: {
+      A: ['squat', 'overheadPress', 'rearFly'],
+      B: ['squat', 'overheadPress', 'rearFly', 'lateralRaise'],
 
     },
     back: {
-      A: ['deadlift', 'bent-over-row', 'chin-up'],
-      B: ['deadlift', 'bent-over-row', 'chin-up', 'upright-row'],
+      A: ['deadlift', 'bentOverRow', 'chinUp'],
+      B: ['deadlift', 'bentOverRow', 'chinUp', 'uprightRow'],
     },
     chest: {
-      A: ['barbell-benchpress', 'skull-crusher-super-set', 'dip'],
-      B: ['dumbbell-benchpress', 'skull-crusher-super-set', 'dip', 'incline-barbell-benchpress'],
+      A: ['barbellBenchpress', 'skullCrusherSuperSet', 'dip'],
+      B: ['dumbbellBenchpress', 'skullCrusherSuperSet', 'dip', 'inclineBarbellBenchpress'],
     },
   },
 
@@ -35,7 +36,7 @@ export default {
       },
       increments: 2.5,
     },
-    'barbell-benchpress': {
+    barbellBenchpress: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
@@ -49,49 +50,49 @@ export default {
       },
       increments: 2.5,
     },
-    'bent-over-row': {
+    bentOverRow: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
     },
-    'chin-up': {
+    chinUp: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[5, 5, 5, 5, 5]],
       },
       increments: 0,
     },
-    'skull-crusher-super-set': {
+    skullCrusherSuperSet: {
       sets: {
         A: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
     },
-    'dumbbell-benchpress': {
+    dumbbellBenchpress: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
     },
-    'rear-fly': {
+    rearFly: {
       sets: {
         A: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
     },
-    'lateral-raise': {
+    lateralRaise: {
       sets: {
         A: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
     },
-    'incline-barbell-benchpress': {
+    inclineBarbellBenchpress: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
@@ -105,7 +106,7 @@ export default {
       },
       increments: 2.5,
     },
-    'upright-row': {
+    uprightRow: {
       sets: {
         A: [[5, 5, 5, 5, 5]],
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],

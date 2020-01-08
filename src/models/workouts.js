@@ -3,14 +3,15 @@ import schedule from '../constants/schedule-opts';
 import {
   calculateCurrentWeight,
   calculateCurrentReps,
+  saveToHistory,
   calculateStartingWarmupWeight,
   calculateNextWarmupWeight,
   shouldContinueWarmingUp,
   calculateNextVariant,
 } from '../utils/weights';
+
 import {
   getNextLoopedArrayItem,
-  saveToLimitedLengthArray,
 } from '../utils/arrays';
 
 export default {
@@ -21,10 +22,11 @@ export default {
     // keep track of different aspects of training
     currentVariant: initState.variant,
     currentWorkout: initState.workout,
-    currentSet: initState.set,
+    currentSetIndex: initState.set,
     currentExercise: initState.exercise,
     currentWeight: initState.currentWeight,
     workoutCount: initState.workoutCount,
+    numberOfSets: initState.numberOfSets,
     // The weight goal and reps
     goalWeight: initState.goalWeight,
     goalReps: initState.goalReps,
@@ -57,7 +59,11 @@ export default {
         hasStarted: true,
         isFinished: false,
         currentExercise: currentWorkoutInfo[0],
-        goalWeight: calculateCurrentWeight(currentWorkoutInfo[0], history[currentExercise]),
+        goalWeight: calculateCurrentWeight(
+          currentExerciseInfo,
+          currentVariant,
+          history[currentExercise],
+        ),
         goalReps: calculateCurrentReps(
           currentExerciseInfo,
           currentVariant,
@@ -79,7 +85,7 @@ export default {
       currentExercise,
       currentVariant,
       currentWorkout,
-      currentSet,
+      currentSetIndex,
       history,
       ...state
     }, payload) => {
@@ -105,7 +111,7 @@ export default {
       const currentExerciseInfo = schedule.exercise[currentExercise];
       const numberOfSets = currentExerciseInfo.sets[currentVariant].length;
 
-      if (currentSet === numberOfSets) {
+      if (currentSetIndex === numberOfSets) {
         if (currentExerciseIndex + 1 === currentWorkoutInfo.length) {
           // We reached the end of this workout.
           return {
@@ -115,20 +121,27 @@ export default {
         }
 
         // go to next exercise
+        const nextExercise = getNextLoopedArrayItem(currentExercise, currentWorkoutInfo);
+
         return {
           ...state,
-          currentSet: 1,
-          currentExercise: getNextLoopedArrayItem(currentExercise, currentWorkoutInfo),
+          currentSetIndex: 1,
+          currentExercise: nextExercise,
           isWarmingUp: true,
-          history: saveToLimitedLengthArray(payload.performance, history[currentExercise], 5),
+          history: saveToHistory(
+            history,
+            currentExercise,
+            payload.performance,
+          ),
           goalWeight: calculateCurrentWeight(
-            currentWorkoutInfo[currentExerciseIndex + 1],
-            history[currentExercise],
+            schedule.exercise[nextExercise],
+            currentVariant,
+            history[nextExercise],
           ),
           goalReps: calculateCurrentReps(
-            currentExerciseInfo,
+            schedule.exercise[nextExercise],
             currentVariant,
-            history[currentExercise],
+            history[nextExercise],
           ),
         };
       }
@@ -136,21 +149,32 @@ export default {
       // Go to next set.
       return {
         ...state,
-        currentSet: currentSet + 1,
-        history: saveToLimitedLengthArray(payload.performance, history[currentExercise], 5),
+        currentSetIndex: currentSetIndex + 1,
+        history: saveToHistory(
+          history,
+          currentExercise,
+          payload.performance,
+        ),
+
       };
     },
 
     finishWorkout: ({
       currentWorkout, currentVariant, currentExercise, workoutCount, ...state
-    }) => ({
-      ...state,
-      isFinished: false,
-      hasStarted: false,
-      // Set next workout
-      currentWorkout: getNextLoopedArrayItem(currentWorkout, Object.keys(schedule.workouts)),
-      workoutCount: workoutCount + 1,
-      variant: calculateNextVariant(workoutCount, state.variant),
-    }),
+    }) => {
+      const nextWorkout = getNextLoopedArrayItem(currentWorkout, Object.keys(schedule.workouts));
+      const nextVariant = calculateNextVariant(workoutCount, state.variant);
+
+      return {
+        ...state,
+        isFinished: false,
+        hasStarted: false,
+        // Set next workout
+        currentWorkout: nextWorkout,
+        currentExercise: schedule.workouts[nextWorkout][nextVariant],
+        workoutCount: workoutCount + 1,
+        variant: nextVariant,
+      };
+    },
   },
 };
