@@ -5,7 +5,6 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "jest": {
-    "preset": "jest-expo",
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|react-navigation|redux-persist|native-base(-shoutem-theme)|native-base|react-native-router-flux))"
     ]
@@ -61,6 +60,7 @@
     "eslint-plugin-react": "^7.12.4",
     "jest-expo": "^32.0.0",
     "node-sass": "^4.13.0",
+    "jest": "^24.9.0",
     "react-scripts": "2.1.8"
   }
 }

@@ -1,5 +1,5 @@
 import schedule from '../constants/schedule-opts';
-import { getNextLoopedArrayItem } from './arrays';
+import { getTheDamnIndex, getNextLoopedArrayItem } from './arrays';
 
 export function calculateCurrentWeight(exerciseInfo, variant, history) {
   return 10;
@@ -14,20 +14,24 @@ export function calculateStartingWarmupWeight(goalWeight) {
 }
 
 export function calculateCurrentReps(exerciseInfo, variant, history) {
-  const possibleRepGroups = exerciseInfo[variant].sets;
-  const { previousSets, previousReps } = history[0];
-  const previousGroup = possibleRepGroups[
-    possibleRepGroups
-      .map(item => item.toString())
-      .indexOf(previousSets.toString())
-  ];
+  const possibleRepGroups = exerciseInfo.sets[variant];
+  const { sets: previousSets, reps: previousReps } = history[0];
+  const foundIndex = getTheDamnIndex(possibleRepGroups, previousSets);
+
+  if (foundIndex === -1) {
+    // New variant that we've never seen before
+    return exerciseInfo.sets[variant][0][0];
+  }
+
+  const previousGroup = possibleRepGroups[foundIndex];
 
   if (history[previousGroup.length - 1].reps !== previousReps) {
     // we're in the same workout
     return previousReps;
   }
+
   // We've just started a new workout
-  return getNextLoopedArrayItem(exerciseInfo[variant], previousGroup)[0];
+  return getNextLoopedArrayItem(exerciseInfo.sets[variant], previousGroup)[0];
 }
 
 export function shouldContinueWarmingUp(weight, goalWeight) {
@@ -41,15 +45,15 @@ export function calculateNextVariant(workoutCount, variant) {
   }
 
   // Get next variant, looping around.
-  return getNextLoopedArrayItem(variant, schedule.variants);
+  return getNextLoopedArrayItem(schedule.variants, variant);
 }
 
 export function saveToHistory(history, exercise, performance) {
   return {
     ...history,
     [exercise]: saveToLimitedLengthArray(
-      performance,
       history[exercise],
+      performance,
       schedule.historyKeepLength,
     ),
   };

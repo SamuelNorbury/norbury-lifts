@@ -9,7 +9,7 @@ export default () => {
   const workout = Object.keys(schedule.workouts)[0];
   const exercise = Object.keys(schedule.workouts[workout][variant])[0];
   const history = Object.keys(schedule.exercises).reduce((obj, item) => {
-    obj[item] = [];
+    obj[item] = Array(schedule.historyKeepLength).map((x) => {});
     return obj;
   }, {});
 
