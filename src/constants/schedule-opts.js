@@ -6,6 +6,8 @@ export default {
   },
   variantSwitchCount: 30,
   historyKeepLength: 15,
+  weightReductionFactor: 0.8,
+  failureRatio: 4,
 
   variants: [
     'A',
