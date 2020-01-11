@@ -1,5 +1,10 @@
-import { calculateCurrentReps } from './weights';
-import schedule from '../constants/schedule-opts';
+import {
+  calculateCurrentReps,
+  calculateNextWarmupWeight,
+  calculateStartingWarmupWeight,
+  ceilWeightToX,
+  shouldContinueWarmingUp,
+} from './weights';
 
 test('same set has same reps', () => {
   expect(calculateCurrentReps(
@@ -235,4 +240,36 @@ test('set type switch in same variant', () => {
       {}, {}, {}, {}, {}, {}, {},
     ],
   )).toBe(10);
+});
+
+test('warmup weight is calculated correctly', () => {
+  expect(calculateNextWarmupWeight(5, 1)).toBe(6);
+  expect(calculateNextWarmupWeight(5, 2)).toBe(6);
+  expect(calculateNextWarmupWeight(5, 3)).toBe(6);
+  expect(calculateNextWarmupWeight(5, 2.5)).toBe(7.5);
+});
+
+test('starting warmup weight is correct', () => {
+  expect(calculateStartingWarmupWeight(5, 2.5)).toBe(2.5);
+  expect(calculateStartingWarmupWeight(50, 2.5)).toBe(25);
+  expect(calculateStartingWarmupWeight(50, 2)).toBe(26);
+});
+
+test('weight is rounded up correctly', () => {
+  expect(ceilWeightToX(5, 6)).toBe(6);
+  expect(ceilWeightToX(48.4817381, 2.5)).toBe(50);
+  expect(ceilWeightToX(50, 0)).toBe(50);
+  expect(ceilWeightToX(50, -1)).toBe(50);
+});
+
+test('should continue warming up', () => {
+  expect(shouldContinueWarmingUp(5, 20)).toBeTruthy();
+  expect(shouldContinueWarmingUp(8, 22.5)).toBeTruthy();
+  expect(shouldContinueWarmingUp(15, 22.5)).toBeTruthy();
+});
+
+test('done warming up', () => {
+  expect(shouldContinueWarmingUp(18, 20)).toBeFalsy();
+  expect(shouldContinueWarmingUp(18, 22.5)).toBeFalsy();
+  expect(shouldContinueWarmingUp(60, 22.5)).toBeFalsy();
 });

@@ -49,3 +49,23 @@ test('next item is not simple', () => {
     ),
   ).toEqual(['7']);
 });
+
+test('saves to shorter array', () => {
+  expect(saveToLimitedLengthArray([1, 2, 3], 1, 5))
+    .toEqual([1, 1, 2, 3]);
+});
+
+test('saves to limit array', () => {
+  expect(saveToLimitedLengthArray([1, 2, 3, 4], 1, 5))
+    .toEqual([1, 1, 2, 3, 4]);
+});
+
+test('saves to empty array', () => {
+  expect(saveToLimitedLengthArray([], 1, 5))
+    .toEqual([1]);
+});
+
+test('limits the length', () => {
+  expect(saveToLimitedLengthArray([1, 2, 3, 4, 5], 1, 5))
+    .toEqual([1, 1, 2, 3, 4]);
+});

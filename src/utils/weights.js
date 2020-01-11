@@ -5,12 +5,12 @@ export function calculateCurrentWeight(exerciseInfo, variant, history) {
   return 10;
 }
 
-export function calculateNextWarmupWeight(weight) {
-  return weight * schedule.warmup['increment-factor'];
+export function calculateNextWarmupWeight(weight, increment) {
+  return ceilWeightToX(weight * schedule.warmup.incrementFactor, increment);
 }
 
-export function calculateStartingWarmupWeight(goalWeight) {
-  return goalWeight * schedule.warmup['start-ratio'];
+export function calculateStartingWarmupWeight(goalWeight, increment) {
+  return ceilWeightToX(goalWeight * schedule.warmup.startRatio, increment);
 }
 
 export function calculateCurrentReps(exerciseInfo, variant, history) {
@@ -39,7 +39,7 @@ export function shouldContinueWarmingUp(weight, goalWeight) {
 }
 
 export function calculateNextVariant(workoutCount, variant) {
-  if ((workoutCount + 1) % schedule['variant-switch-count'] !== 0) {
+  if ((workoutCount + 1) % schedule.variantSwitchCount !== 0) {
     // stick with current variant unless we've reached the switch threshold.
     return variant;
   }
@@ -57,4 +57,11 @@ export function saveToHistory(history, exercise, performance) {
       schedule.historyKeepLength,
     ),
   };
+}
+
+export function ceilWeightToX(weight, x) {
+  if (x < 1) {
+    x = 1;
+  }
+  return Math.ceil(weight / x) * x;
 }
