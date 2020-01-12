@@ -452,6 +452,94 @@ test('getting next weight works for a new workout', () => {
         weight: 50,
         success: false,
       }],
+  )).toBe(50);
+});
+
+test('getting next weight works for a new workout at end of the repgroups', () => {
+  expect(calculateCurrentWeight(
+    {
+      sets: {
+        A: [[5, 5, 5, 5, 5]],
+        B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
+      },
+      increments: 2.5,
+    },
+    'B',
+    [
+      {
+        sets: [12, 12, 12],
+        reps: 12,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [12, 12, 12],
+        reps: 12,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [12, 12, 12],
+        reps: 12,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [8, 8, 8],
+        reps: 8,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [8, 8, 8],
+        reps: 8,
+        weight: 50,
+        success: false,
+      }],
+  )).toBe(50);
+});
+
+test('getting next weight works for a new workout at end single group of the repgroups', () => {
+  expect(calculateCurrentWeight(
+    {
+      sets: {
+        A: [[5, 5, 5, 5, 5]],
+        B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
+      },
+      increments: 2.5,
+    },
+    'A',
+    [
+      {
+        sets: [5, 5, 5, 5, 5],
+        reps: 5,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [5, 5, 5, 5, 5],
+        reps: 5,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [5, 5, 5, 5, 5],
+        reps: 5,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [5, 5, 5, 5, 5],
+        reps: 5,
+        weight: 50,
+        success: true,
+      },
+      {
+        sets: [5, 5, 5, 5, 5],
+        reps: 5,
+        weight: 50,
+        success: true,
+      }],
   )).toBe(52.5);
 });
 

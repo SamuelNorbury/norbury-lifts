@@ -21,7 +21,13 @@ export function calculateCurrentWeight(exerciseInfo, variant, history) {
   // We've just started a new workout
   // check for failures in the previous workout
   if (!getOccurredFailures(history, previousGroup.length)) {
-    return increaseWeight(previousWeight, exerciseInfo.increments);
+      // if we're in the last rep group of the variant, increase the weight
+      if (foundIndex === possibleRepGroups.length - 1) {
+        return increaseWeight(previousWeight, exerciseInfo.increments);
+      }
+
+      // otherwise the reps will just increase.
+      return previousWeight;
   }
 
   // check the whole history for a really bad plateau
