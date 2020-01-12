@@ -60,7 +60,6 @@
     "eslint-plugin-react": "^7.12.4",
     "jest-expo": "^32.0.0",
     "node-sass": "^4.13.0",
-    "jest": "^24.9.0",
     "react-scripts": "2.1.8"
   }
 }
