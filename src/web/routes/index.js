@@ -11,8 +11,10 @@ import StartWarmupContainer from '../../containers/StartWarmup';
 import FinishContainer from '../../containers/Finish';
 import ExerciseContainer from '../../containers/Exercise';
 
-import SingleClickComponent from '../components/SingleClick';
+import StartComponent from '../components/Start';
 import ExerciseComponent from '../components/Exercise';
+import StartWarmupComponent from '../components/StartWarmup';
+import FinishComponent from '../components/Finish';
 
 import Error from '../components/UI/Error';
 
@@ -23,7 +25,7 @@ const Index = () => (
       path="/"
       render={props => (
         <TemplateNothing>
-          <StartContainer {...props} Layout={SingleClickComponent} />
+          <StartContainer {...props} Layout={StartComponent} />
         </TemplateNothing>
       )}
     />
@@ -32,7 +34,7 @@ const Index = () => (
       path="/warmup"
       render={props => (
         <TemplateNothing>
-          <StartWarmupContainer {...props} Layout={SingleClickComponent} />
+          <StartWarmupContainer {...props} Layout={StartWarmupComponent} />
         </TemplateNothing>
       )}
     />
@@ -41,7 +43,7 @@ const Index = () => (
       path="/finish"
       render={props => (
         <TemplateNothing>
-          <FinishContainer {...props} Layout={SingleClickComponent} />
+          <FinishContainer {...props} Layout={FinishComponent} />
         </TemplateNothing>
       )}
     />

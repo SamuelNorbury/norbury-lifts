@@ -2,28 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class Exercise extends Component {
+class Start extends Component {
   static propTypes = {
-  }
-
-  state = {
+    onStart: PropTypes.func.isRequired,
   }
 
   render = () => {
-    const { Layout } = this.props;
+    const { Layout, onStart } = this.props;
     return (
-      <Layout />
+      <Layout
+        onClick={onStart}
+      />
     );
   }
 }
 
-const mapStateToProps = state => ({
-
-
-});
+const mapStateToProps = () => ({ });
 
 const mapDispatchToProps = dispatch => ({
-
+  onStart: dispatch.workouts.startWorkout,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Exercise);
+export default connect(mapStateToProps, mapDispatchToProps)(Start);
