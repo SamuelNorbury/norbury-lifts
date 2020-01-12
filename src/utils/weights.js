@@ -1,5 +1,5 @@
 import schedule from '../constants/schedule-opts';
-import { getTheDamnIndex, getNextLoopedArrayItem } from './arrays';
+import { saveToLimitedLengthArray, getTheDamnIndex, getNextLoopedArrayItem } from './arrays';
 
 export function calculateCurrentWeight(exerciseInfo, variant, history) {
   const possibleRepGroups = exerciseInfo.sets[variant];
