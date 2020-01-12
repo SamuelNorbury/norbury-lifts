@@ -496,7 +496,7 @@ test('getting next weight works for a new workout at end of the repgroups', () =
         weight: 50,
         success: false,
       }],
-  )).toBe(50);
+  )).toBe(52.5);
 });
 
 test('getting next weight works for a new workout at end single group of the repgroups', () => {
