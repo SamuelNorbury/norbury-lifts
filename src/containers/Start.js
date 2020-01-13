@@ -14,10 +14,8 @@ class Start extends PureComponent {
 
   handleClick = () => {
     const { onStart, history } = this.props;
-    return onStart()
-      .then(() => {
-        history.push('/warmup');
-      });
+    onStart();
+    history.push('/warmup');
   }
 
   render = () => {
@@ -33,8 +31,7 @@ class Start extends PureComponent {
 const mapStateToProps = () => ({ });
 
 const mapDispatchToProps = dispatch => ({
-  onStart:
-    dispatch.workouts.startWorkout,
+  onStart: dispatch.workouts.startWorkout,
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Start));

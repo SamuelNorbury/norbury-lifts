@@ -43,14 +43,9 @@ export default {
    * Reducers
    */
   reducers: {
-    startWorkout: ({
-      currentWorkout,
-      currentVariant,
-      currentExercise,
-      history,
-      ...state
-    }) => {
-      const currentWorkoutInfo = schedule.workouts[currentWorkout][currentVariant];
+    startWorkout: (state) => {
+      const currentWorkoutInfo = schedule.workouts[state.currentWorkout][state.currentVariant];
+      const currentExercise = currentWorkoutInfo[0];
       const currentExerciseInfo = schedule.exercises[currentExercise];
 
       return {
@@ -58,16 +53,16 @@ export default {
         isWarmingUp: false,
         hasStarted: true,
         isFinished: false,
-        currentExercise: currentWorkoutInfo[0],
+        currentExercise,
         goalWeight: calculateCurrentWeight(
           currentExerciseInfo,
-          currentVariant,
-          history[currentExercise],
+          state.currentVariant,
+          state.history[currentExercise],
         ),
         goalReps: calculateCurrentReps(
           currentExerciseInfo,
-          currentVariant,
-          history[currentExercise],
+          state.currentVariant,
+          state.history[currentExercise],
         ),
       };
     },
@@ -78,20 +73,10 @@ export default {
       currentWeight: calculateStartingWarmupWeight(state.goalWeight),
     }),
 
-    completeSet: ({
-      isWarmingUp,
-      currentWeight,
-      goalWeight,
-      currentExercise,
-      currentVariant,
-      currentWorkout,
-      currentSetIndex,
-      history,
-      ...state
-    }, payload) => {
-      if (isWarmingUp) {
+    completeSet: (state, payload) => {
+      if (state.isWarmingUp) {
         // Warmup set completed
-        if (shouldContinueWarmingUp(payload.performance.weight, goalWeight)) {
+        if (shouldContinueWarmingUp(payload.performance.weight, state.goalWeight)) {
           // continue warming up
           return {
             ...state,
@@ -106,12 +91,12 @@ export default {
         };
       }
 
-      const currentWorkoutInfo = schedule.workouts[currentWorkout][currentVariant];
-      const currentExerciseIndex = currentWorkoutInfo.indexOf(currentExercise);
-      const currentExerciseInfo = schedule.exercise[currentExercise];
-      const numberOfSets = currentExerciseInfo.sets[currentVariant].length;
+      const currentWorkoutInfo = schedule.workouts[state.currentWorkout][state.currentVariant];
+      const currentExerciseIndex = currentWorkoutInfo.indexOf(state.currentExercise);
+      const currentExerciseInfo = schedule.exercise[state.currentExercise];
+      const numberOfSets = currentExerciseInfo.sets[state.currentVariant].length;
 
-      if (currentSetIndex === numberOfSets) {
+      if (state.currentSetIndex === numberOfSets) {
         if (currentExerciseIndex + 1 === currentWorkoutInfo.length) {
           // We reached the end of this workout.
           return {
@@ -121,7 +106,7 @@ export default {
         }
 
         // go to next exercise
-        const nextExercise = getNextLoopedArrayItem(currentExercise, currentWorkoutInfo);
+        const nextExercise = getNextLoopedArrayItem(state.currentExercise, currentWorkoutInfo);
 
         return {
           ...state,
@@ -129,19 +114,19 @@ export default {
           currentExercise: nextExercise,
           isWarmingUp: true,
           history: saveToHistory(
-            history,
-            currentExercise,
+            state.history,
+            state.currentExercise,
             payload.performance,
           ),
           goalWeight: calculateCurrentWeight(
             schedule.exercise[nextExercise],
-            currentVariant,
-            history[nextExercise],
+            state.currentVariant,
+            state.history[nextExercise],
           ),
           goalReps: calculateCurrentReps(
             schedule.exercise[nextExercise],
-            currentVariant,
-            history[nextExercise],
+            state.currentVariant,
+            state.history[nextExercise],
           ),
         };
       }
@@ -149,21 +134,19 @@ export default {
       // Go to next set.
       return {
         ...state,
-        currentSetIndex: currentSetIndex + 1,
+        currentSetIndex: state.currentSetIndex + 1,
         history: saveToHistory(
-          history,
-          currentExercise,
+          state.history,
+          state.currentExercise,
           payload.performance,
         ),
 
       };
     },
 
-    finishWorkout: ({
-      currentWorkout, currentVariant, currentExercise, workoutCount, ...state
-    }) => {
-      const nextWorkout = getNextLoopedArrayItem(currentWorkout, Object.keys(schedule.workouts));
-      const nextVariant = calculateNextVariant(workoutCount, state.variant);
+    finishWorkout: (state) => {
+      const nextWorkout = getNextLoopedArrayItem(state.currentWorkout, Object.keys(schedule.workouts));
+      const nextVariant = calculateNextVariant(state.workoutCount, state.currentVariant);
 
       return {
         ...state,
@@ -172,7 +155,7 @@ export default {
         // Set next workout
         currentWorkout: nextWorkout,
         currentExercise: schedule.workouts[nextWorkout][nextVariant],
-        workoutCount: workoutCount + 1,
+        workoutCount: state.workoutCount + 1,
         variant: nextVariant,
       };
     },

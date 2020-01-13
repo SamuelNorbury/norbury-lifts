@@ -6,7 +6,7 @@ export function calculateCurrentWeight(exerciseInfo, variant, history) {
   const { weight: previousWeight, sets: previousSets, reps: previousReps } = history[0];
 
   if (!previousSets) {
-    // first time ever performing an exercise.
+    // First time ever performing an exercise.
     return exerciseInfo.startingWeight;
   }
 
@@ -56,6 +56,11 @@ export function calculateStartingWarmupWeight(goalWeight, increments) {
 export function calculateCurrentReps(exerciseInfo, variant, history) {
   const possibleRepGroups = exerciseInfo.sets[variant];
   const { sets: previousSets, reps: previousReps } = history[0];
+
+  if (!previousSets) {
+    return exerciseInfo.sets[variant][0][0];
+  }
+
   const foundIndex = getTheDamnIndex(possibleRepGroups, previousSets);
 
   if (foundIndex === -1) {

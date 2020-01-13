@@ -14,10 +14,8 @@ class StartWarmup extends PureComponent {
 
   handleClick = () => {
     const { onStart, history } = this.props;
-    return onStart()
-      .then(() => {
-        history.push('/exercise');
-      });
+    onStart();
+    history.push('/exercise');
   }
 
   render = () => {
