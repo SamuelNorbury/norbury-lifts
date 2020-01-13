@@ -1,10 +1,23 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-class Start extends Component {
+class Start extends PureComponent {
   static propTypes = {
     onStart: PropTypes.func.isRequired,
+    Layout: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
+  handleClick = () => {
+    const { onStart, history } = this.props;
+    return onStart()
+      .then(() => {
+        history.push('/warmup');
+      });
   }
 
   render = () => {
@@ -20,7 +33,8 @@ class Start extends Component {
 const mapStateToProps = () => ({ });
 
 const mapDispatchToProps = dispatch => ({
-  onStart: dispatch.workouts.startWorkout,
+  onStart:
+    dispatch.workouts.startWorkout,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Start);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Start));

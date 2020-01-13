@@ -9,7 +9,7 @@ const SingleClick = (props) => (
         <h1 className="display-3 text-primary">{props.title}</h1>
         {props.subtitle && <p className="lead">{props.subtitle}</p>}
         <div>
-          <Button onClick={props.onClick} color="info" size="lg">
+          <Button onClick={props.onClick} color="info" size="lg" block>
             {props.buttonText || generalMessages.letsGo}
           </Button>
         </div>

@@ -16,41 +16,12 @@ import { SidebarNavItems } from './Sidebar';
 
 class Header extends Component {
   static propTypes = {
-    member: PropTypes.shape({
-      firstName: PropTypes.string,
-      email: PropTypes.string,
-    }),
-    logout: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
   }
 
-  static defaultProps = {
-    member: {},
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.state = { isOpen: false };
-  }
-
-  onLogout = () => {
-    const { logout, history } = this.props;
-    logout().then(() => history.push('/login'));
-  }
-
-  toggleDropDown = () => {
-    const { isOpen } = this.state;
-    this.setState({ isOpen: !isOpen });
-  }
-
   render() {
-    const { member } = this.props;
-    const { isOpen } = this.state;
-    const loggedIn = !!(member && member.email);
 
     return (
       <header>

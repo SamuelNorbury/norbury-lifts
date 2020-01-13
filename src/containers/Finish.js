@@ -1,29 +1,34 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-class Exercise extends Component {
+class Finish extends PureComponent {
   static propTypes = {
-  }
-
-  state = {
+    onFinish: PropTypes.func.isRequired,
+    Layout: PropTypes.func.isRequired,
   }
 
   render = () => {
-    const { Layout } = this.props;
+    const { Layout, onFinish } = this.props;
     return (
-      <Layout />
+      <Layout
+        onClick={onFinish}
+      />
     );
   }
 }
 
-const mapStateToProps = state => ({
-
-
-});
+const mapStateToProps = () => ({ });
 
 const mapDispatchToProps = dispatch => ({
-
+  onFinish: () => {
+    const history = useHistory();
+    dispatch.workouts.finishWorkout()
+      .then(() => {
+        history.push('/');
+      });
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Exercise);
+export default connect(mapStateToProps, mapDispatchToProps)(Finish);

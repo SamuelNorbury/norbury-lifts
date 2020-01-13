@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
 // Templates
 import TemplateNothing from '../components/Templates/Nothing';
-import TemplateSidebar from '../components/Templates/Sidebar';
 
 // Routes
 import StartContainer from '../../containers/Start';
