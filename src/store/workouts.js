@@ -1,15 +1,11 @@
 import schedule from '../constants/schedule-opts';
-import {
-  calculateCurrentWeight,
-  calculateNextVariant,
-} from '../utils/weights';
 
-export default () => {
+export default (() => {
   const variant = schedule.variants[0];
   const workout = Object.keys(schedule.workouts)[0];
-  const exercise = Object.keys(schedule.workouts[workout][variant])[0];
+  const exercise = schedule.workouts[workout][variant][0];
   const history = Object.keys(schedule.exercises).reduce((obj, item) => {
-    obj[item] = Array(schedule.historyKeepLength).map((x) => {});
+    obj[item] = Array.from({ length: schedule.historyKeepLength }, () => new Object());
     return obj;
   }, {});
 
@@ -24,4 +20,4 @@ export default () => {
     workoutCount: 0,
     numberOfSets: schedule.exercises[exercise].sets[variant][0].length,
   };
-};
+})();

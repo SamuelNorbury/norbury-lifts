@@ -51,7 +51,7 @@ export default {
       ...state
     }) => {
       const currentWorkoutInfo = schedule.workouts[currentWorkout][currentVariant];
-      const currentExerciseInfo = schedule.exercise[currentExercise];
+      const currentExerciseInfo = schedule.exercises[currentExercise];
 
       return {
         ...state,
