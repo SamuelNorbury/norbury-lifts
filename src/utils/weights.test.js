@@ -411,6 +411,21 @@ test('saving to history works as expected', () => {
 
 });
 
+test('getting weight works for empty history', () => {
+  expect(calculateCurrentWeight(
+    {
+      sets: {
+        A: [[5, 5, 5, 5, 5]],
+        B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
+      },
+      increments: 2.5,
+      startingWeight: 20,
+    },
+    'B',
+    [ { }, { }, { }, { }, { }],
+  )).toBe(20);
+});
+
 test('getting next weight works for a new workout', () => {
   expect(calculateCurrentWeight(
     {

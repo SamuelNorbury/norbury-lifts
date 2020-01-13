@@ -37,6 +37,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 20,
     },
     barbellBenchpress: {
       sets: {
@@ -44,6 +45,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 20,
     },
     squat: {
       sets: {
@@ -51,6 +53,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 20,
     },
     bentOverRow: {
       sets: {
@@ -58,6 +61,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 20,
     },
     chinUp: {
       sets: {
@@ -65,6 +69,7 @@ export default {
         B: [[5, 5, 5, 5, 5]],
       },
       increments: 0,
+      startingWeight: 0,
     },
     skullCrusherSuperSet: {
       sets: {
@@ -72,6 +77,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 10,
     },
     dumbbellBenchpress: {
       sets: {
@@ -79,6 +85,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
+      startingWeight: 8,
     },
     rearFly: {
       sets: {
@@ -86,6 +93,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
+      startingWeight: 4,
     },
     lateralRaise: {
       sets: {
@@ -93,6 +101,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2,
+      startingWeight: 2,
     },
     inclineBarbellBenchpress: {
       sets: {
@@ -100,6 +109,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 20,
     },
     dip: {
       sets: {
@@ -107,6 +117,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 0,
     },
     uprightRow: {
       sets: {
@@ -114,6 +125,7 @@ export default {
         B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
       },
       increments: 2.5,
+      startingWeight: 10,
     },
   },
 };

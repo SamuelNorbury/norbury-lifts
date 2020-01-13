@@ -4,6 +4,12 @@ import { saveToLimitedLengthArray, getTheDamnIndex, getNextLoopedArrayItem } fro
 export function calculateCurrentWeight(exerciseInfo, variant, history) {
   const possibleRepGroups = exerciseInfo.sets[variant];
   const { weight: previousWeight, sets: previousSets, reps: previousReps } = history[0];
+
+  if (!previousSets) {
+    // first time ever performing an exercise.
+    return exerciseInfo.startingWeight;
+  }
+
   const foundIndex = getTheDamnIndex(possibleRepGroups, previousSets);
 
   if (foundIndex === -1) {
@@ -21,13 +27,13 @@ export function calculateCurrentWeight(exerciseInfo, variant, history) {
   // We've just started a new workout
   // check for failures in the previous workout
   if (!getOccurredFailures(history, previousGroup.length)) {
-      // if we're in the last rep group of the variant, increase the weight
-      if (foundIndex === possibleRepGroups.length - 1) {
-        return increaseWeight(previousWeight, exerciseInfo.increments);
-      }
+    // if we're in the last rep group of the variant, increase the weight
+    if (foundIndex === possibleRepGroups.length - 1) {
+      return increaseWeight(previousWeight, exerciseInfo.increments);
+    }
 
-      // otherwise the reps will just increase.
-      return previousWeight;
+    // otherwise the reps will just increase.
+    return previousWeight;
   }
 
   // check the whole history for a really bad plateau
