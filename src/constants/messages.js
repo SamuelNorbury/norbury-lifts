@@ -6,6 +6,13 @@ export const generalMessages = {
   ok: 'OK',
   goodJob: 'Good Job!',
   readyForWorkout: 'Get Ready To Start Your First Workout',
+  firstExercise: 'Your next exercise is ',
+  firstAWarmup: 'We will begin with a few warmup sets.',
+
+};
+
+export const exercises = {
+  squat: 'Barbell Squat',
 };
 
 export const successMessages = {};

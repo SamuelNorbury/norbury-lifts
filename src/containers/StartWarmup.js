@@ -10,6 +10,7 @@ class StartWarmup extends PureComponent {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
+    currentExercise: PropTypes.string.isRequired,
   }
 
   handleClick = () => {
@@ -19,16 +20,19 @@ class StartWarmup extends PureComponent {
   }
 
   render = () => {
-    const { Layout, onStart } = this.props;
+    const { Layout, currentExercise } = this.props;
     return (
       <Layout
-        onClick={onStart}
+        currentExercise={currentExercise}
+        onClick={this.handleClick}
       />
     );
   }
 }
 
-const mapStateToProps = () => ({ });
+const mapStateToProps = state => ({
+  currentExercise: state.workouts.currentExercise,
+});
 
 const mapDispatchToProps = dispatch => ({
   onStart: dispatch.workouts.startExercise,

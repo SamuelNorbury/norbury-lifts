@@ -19,10 +19,10 @@ class Start extends PureComponent {
   }
 
   render = () => {
-    const { Layout, onStart } = this.props;
+    const { Layout } = this.props;
     return (
       <Layout
-        onClick={onStart}
+        onClick={this.handleClick}
       />
     );
   }

@@ -6,8 +6,8 @@ const SingleClick = (props) => (
   <div>
     <Jumbotron>
       <Container fluid>
-        <h1 className="display-3 text-primary">{props.title}</h1>
-        {props.subtitle && <p className="lead">{props.subtitle}</p>}
+        <h1 className="text-center display-3 text-primary" >{props.title}</h1>
+        {props.subtitle && <p className="lead text-center">{props.subtitle}</p>}
         <div>
           <Button onClick={props.onClick} color="info" size="lg" block>
             {props.buttonText || generalMessages.letsGo}
