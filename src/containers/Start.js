@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 class Start extends PureComponent {
   static propTypes = {
@@ -12,17 +11,12 @@ class Start extends PureComponent {
     }).isRequired,
   }
 
-  handleClick = () => {
-    const { onStart, history } = this.props;
-    onStart();
-    history.push('/warmup');
-  }
-
   render = () => {
-    const { Layout } = this.props;
+    const { Layout, onStart } = this.props;
     return (
       <Layout
-        onClick={this.handleClick}
+        onClick={onStart}
+        nextPage="warmup"
       />
     );
   }
@@ -34,4 +28,4 @@ const mapDispatchToProps = dispatch => ({
   onStart: dispatch.workouts.startWorkout,
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Start));
+export default connect(mapStateToProps, mapDispatchToProps)(Start);
