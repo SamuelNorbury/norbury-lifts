@@ -5,10 +5,15 @@ export const generalMessages = {
   skipSet: 'Skip this set',
   ok: 'OK',
   goodJob: 'Good Job!',
+  keepTrying: 'Too bad, but keep trying',
   readyForWorkout: 'Get Ready To Start Your First Workout',
   firstExercise: 'Your next exercise is ',
   firstAWarmup: 'We will begin with a few warmup sets.',
-
+  currentExerciseIs: 'Your current exercise is: ',
+  repsAre: 'You must do ',
+  reps: 'reps',
+  weightIs: 'at ',
+  kg: 'kg',
 };
 
 export const exercises = {

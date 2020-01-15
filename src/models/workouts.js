@@ -54,6 +54,7 @@ export default {
         hasStarted: true,
         isFinished: false,
         currentExercise,
+        currentSetFormat: currentExerciseInfo.sets[state.currentVariant],
         goalWeight: calculateCurrentWeight(
           currentExerciseInfo,
           state.currentVariant,
@@ -93,10 +94,10 @@ export default {
 
       const currentWorkoutInfo = schedule.workouts[state.currentWorkout][state.currentVariant];
       const currentExerciseIndex = currentWorkoutInfo.indexOf(state.currentExercise);
-      const currentExerciseInfo = schedule.exercise[state.currentExercise];
+      const currentExerciseInfo = schedule.exercises[state.currentExercise];
       const numberOfSets = currentExerciseInfo.sets[state.currentVariant].length;
 
-      if (state.currentSetIndex === numberOfSets) {
+      if (state.currentSetIndex + 1 === numberOfSets) {
         if (currentExerciseIndex + 1 === currentWorkoutInfo.length) {
           // We reached the end of this workout.
           return {
@@ -106,25 +107,26 @@ export default {
         }
 
         // go to next exercise
-        const nextExercise = getNextLoopedArrayItem(state.currentExercise, currentWorkoutInfo);
+        const nextExercise = getNextLoopedArrayItem(currentWorkoutInfo, state.currentExercise);
 
         return {
           ...state,
-          currentSetIndex: 1,
+          currentSetIndex: 0,
           currentExercise: nextExercise,
           isWarmingUp: true,
+          currentSetFormat: schedule.exercises[nextExercise].sets[state.currentVariant],
           history: saveToHistory(
             state.history,
             state.currentExercise,
             payload.performance,
           ),
           goalWeight: calculateCurrentWeight(
-            schedule.exercise[nextExercise],
+            schedule.exercises[nextExercise],
             state.currentVariant,
             state.history[nextExercise],
           ),
           goalReps: calculateCurrentReps(
-            schedule.exercise[nextExercise],
+            schedule.exercises[nextExercise],
             state.currentVariant,
             state.history[nextExercise],
           ),
@@ -145,7 +147,10 @@ export default {
     },
 
     finishWorkout: (state) => {
-      const nextWorkout = getNextLoopedArrayItem(state.currentWorkout, Object.keys(schedule.workouts));
+      const nextWorkout = getNextLoopedArrayItem(
+        state.currentWorkout,
+        Object.keys(schedule.workouts),
+      );
       const nextVariant = calculateNextVariant(state.workoutCount, state.currentVariant);
 
       return {
