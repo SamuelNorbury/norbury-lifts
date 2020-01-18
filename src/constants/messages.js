@@ -10,14 +10,26 @@ export const generalMessages = {
   firstExercise: 'Your next exercise is ',
   firstAWarmup: 'We will begin with a few warmup sets.',
   currentExerciseIs: 'Your current exercise is: ',
-  repsAre: 'You must do ',
+  repsAre: 'You should do ',
   reps: 'reps',
   weightIs: 'at ',
   kg: 'kg',
+  exerciseIs: "You're currently doing"
 };
 
 export const exercises = {
   squat: 'Barbell Squat',
+  overheadPress: 'Barbell Overhead Press',
+  rearFly: 'Rear Lateral Flys',
+  lateralRaise: 'Side Lateral Raises',
+  deadlift: 'Barbell Deadlifts',
+  bentOverRow: 'Barbell Bent-Over Rows',
+  chinUp: 'Chin-Ups',
+  uprightRow: 'Barbell Upright Row',
+  barbellBenchpress: 'Barbell Benchpress',
+  skullCrusherSuperSet: 'Skull-Crushers and EZ-Bar Benchpress Super Set',
+  dip: 'Chest Dips',
+  inclineBarbellBenchpress: 'Incline Barbell Benchpress',
 };
 
 export const successMessages = {};

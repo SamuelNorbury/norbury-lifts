@@ -127,5 +127,13 @@ export default {
       increments: 2.5,
       startingWeight: 10,
     },
+    overheadPress: {
+      sets: {
+        A: [[5, 5, 5, 5, 5]],
+        B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
+      },
+      increments: 2.5,
+      startingWeight: 10,
+    },
   },
 };

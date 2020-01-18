@@ -11,7 +11,7 @@ class Start extends PureComponent {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
-    currentExercise: PropTypes.string.isRequired,
+    exercise: PropTypes.string.isRequired,
   }
 
   handleClick = () => {
@@ -21,7 +21,7 @@ class Start extends PureComponent {
   }
 
   render = () => {
-    const { currentExercise } = this.props;
+    const { exercise } = this.props;
     return (
       <SingleClickComponent
         onClick={this.handleClick}
@@ -29,7 +29,7 @@ class Start extends PureComponent {
           <Fragment>
             <span className="text-info">{generalMessages.firstExercise}</span>
             {' '}
-            <span className="text-warning">{exercises[currentExercise]}</span>
+            <span className="text-warning">{exercises[exercise]}</span>
           </Fragment>
           )}
         subtitle={generalMessages.firstAWarmup}
