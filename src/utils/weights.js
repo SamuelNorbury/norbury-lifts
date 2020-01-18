@@ -1,7 +1,7 @@
 import schedule from '../constants/schedule-opts';
 import { saveToLimitedLengthArray, getTheDamnIndex, getNextLoopedArrayItem } from './arrays';
 
-export function calculateCurrentWeight(exerciseInfo, variant, history) {
+export function calculateGoalWeight(exerciseInfo, variant, history) {
   const possibleRepGroups = exerciseInfo.sets[variant];
   const { weight: previousWeight, sets: previousSets, reps: previousReps } = history[0];
 
@@ -53,19 +53,19 @@ export function calculateStartingWarmupWeight(goalWeight, increments) {
   return ceilWeightToX(goalWeight * schedule.warmup.startRatio, increments);
 }
 
-export function calculateCurrentReps(exerciseInfo, variant, history) {
+export function calculateCurrentSetFormat(exerciseInfo, variant, history) {
   const possibleRepGroups = exerciseInfo.sets[variant];
   const { sets: previousSets, reps: previousReps } = history[0];
 
   if (!previousSets) {
-    return exerciseInfo.sets[variant][0][0];
+    return exerciseInfo.sets[variant][0];
   }
 
   const foundIndex = getTheDamnIndex(possibleRepGroups, previousSets);
 
   if (foundIndex === -1) {
     // New variant that we've never seen before
-    return exerciseInfo.sets[variant][0][0];
+    return exerciseInfo.sets[variant][0];
   }
 
   const previousGroup = possibleRepGroups[foundIndex];
@@ -73,11 +73,15 @@ export function calculateCurrentReps(exerciseInfo, variant, history) {
   if (history[previousGroup.length - 1].reps !== previousReps || getOccurredFailures(history, previousGroup.length)) {
     // we're in the same workout
     // or we previously failed a set
-    return previousReps;
+    return previousSets;
   }
 
   // We've just started a new workout
-  return getNextLoopedArrayItem(exerciseInfo.sets[variant], previousGroup)[0];
+  return getNextLoopedArrayItem(exerciseInfo.sets[variant], previousGroup);
+}
+
+export function calculateCurrentReps(exerciseInfo, variant, history) {
+  return calculateCurrentSetFormat(exerciseInfo, variant, history)[0];
 }
 
 export function shouldContinueWarmingUp(weight, goalWeight) {

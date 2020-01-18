@@ -6,10 +6,11 @@ class Exercise extends PureComponent {
   static propTypes = {
     Layout: PropTypes.func.isRequired,
     onCompleteSet: PropTypes.func.isRequired,
-    currentExercise: PropTypes.string.isRequired,
-    currentWeight: PropTypes.number.isRequired,
-    currentReps: PropTypes.number.isRequired,
-    currentSetFormat: PropTypes.shape([
+    exercise: PropTypes.string.isRequired,
+    weight: PropTypes.number.isRequired,
+    reps: PropTypes.number.isRequired,
+    isWarmup: PropTypes.bool.isRequired,
+    setFormat: PropTypes.shape([
       PropTypes.number.isRequired,
     ]).isRequired,
   }
@@ -18,37 +19,39 @@ class Exercise extends PureComponent {
     const {
       Layout,
       onCompleteSet,
-      currentExercise,
-      currentWeight,
-      currentReps,
-      currentSetFormat,
+      exercise,
+      weight,
+      reps,
+      setFormat,
+      isWarmup,
     } = this.props;
 
     return (
       <Layout
-        onCompleteSet={onCompleteSet}
-        currentExercise={currentExercise}
-        currentReps={currentReps}
-        currentWeight={currentWeight}
-        currentSets={currentSetFormat}
+        onCompleteSet={success => onCompleteSet(weight, reps, setFormat, success)}
+        exercise={exercise}
+        reps={reps}
+        weight={weight}
+        isWarmup={isWarmup}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  currentExercise: state.workouts.currentExercise,
-  currentWeight: state.workouts.currentWeight,
-  currentReps: state.workouts.goalReps,
-  currentSetFormat: state.workouts.currentSetFormat,
+  exercise: state.workouts.exercise,
+  weight: state.workouts.weight,
+  reps: state.workouts.reps,
+  setFormat: state.workouts.setFormat,
+  isWarmup: state.workouts.isWarmup,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onCompleteSet: (weight, reps, currentSetFormat, success) => {
+  onCompleteSet: (weight, reps, setFormat, success) => {
     dispatch.workouts.completeSet({
       weight,
       reps,
-      sets: currentSetFormat,
+      sets: setFormat,
       success,
     });
   },

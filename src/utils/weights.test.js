@@ -1,7 +1,7 @@
 import {
   calculateCurrentReps,
   calculateNextVariant,
-  calculateCurrentWeight,
+  calculateGoalWeight,
   calculateNextWarmupWeight,
   calculateStartingWarmupWeight,
   ceilWeightToX,
@@ -412,7 +412,7 @@ test('saving to history works as expected', () => {
 });
 
 test('getting weight works for empty history', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
@@ -422,12 +422,12 @@ test('getting weight works for empty history', () => {
       startingWeight: 20,
     },
     'B',
-    [ { }, { }, { }, { }, { }],
+    [{ }, { }, { }, { }, { }],
   )).toBe(20);
 });
 
 test('getting next weight works for a new workout', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
@@ -471,7 +471,7 @@ test('getting next weight works for a new workout', () => {
 });
 
 test('getting next weight works for a new workout at end of the repgroups', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
@@ -515,7 +515,7 @@ test('getting next weight works for a new workout at end of the repgroups', () =
 });
 
 test('getting next weight works for a new workout at end single group of the repgroups', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
@@ -559,7 +559,7 @@ test('getting next weight works for a new workout at end single group of the rep
 });
 
 test('getting next weight works for variant switch', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
@@ -608,7 +608,7 @@ test('getting next weight works for variant switch', () => {
 });
 
 test('getting next weight works zero increment exercise', () => {
-  expect(calculateCurrentWeight(
+  expect(calculateGoalWeight(
     {
       sets: {
         A: [[5, 5, 5, 5, 5]],
