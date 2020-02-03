@@ -24,6 +24,7 @@ class Exercise extends Component {
 
     onCompleteSet(success);
 
+    // Handle warmup nicely - needs n+2 index to see next warmup (or do something smarter)
     this.setState({
       responseToPerformance:
         success
