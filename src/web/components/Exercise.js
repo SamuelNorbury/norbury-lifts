@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import BinaryClickComponent from './UI/BinaryClick';
 import { generalMessages, exercises } from '../../constants/messages';
 import { rotateColors } from '../styles/utils';
@@ -11,6 +12,10 @@ class Exercise extends Component {
     weight: PropTypes.number.isRequired,
     reps: PropTypes.number.isRequired,
     isWarmingUp: PropTypes.bool.isRequired,
+    isFinished: PropTypes.bool.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   state = {
@@ -38,6 +43,10 @@ class Exercise extends Component {
     if (isWarmingUp) {
       return (
         <Fragment>
+          <span className={`text-${rotateColors()}`}>{generalMessages.exerciseIs}</span>
+          {' '}
+          <span className={`text-${rotateColors()}`}>{exercises[exercise]}</span>
+          <br />
           <span className={`text-${rotateColors()}`}>{generalMessages.thisIsAWarmupSet}</span>
         </Fragment>
       );
@@ -53,8 +62,16 @@ class Exercise extends Component {
   }
 
   render = () => {
-    const { weight, reps } = this.props;
+    const {
+      weight, reps, isFinished, history,
+    } = this.props;
     const { responseToPerformance } = this.state;
+
+    if (isFinished) {
+      history.push('/finish');
+    }
+
+
     return (
       <BinaryClickComponent
         title={(
@@ -79,4 +96,4 @@ class Exercise extends Component {
   }
 }
 
-export default Exercise;
+export default withRouter(Exercise);

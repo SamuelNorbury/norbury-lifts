@@ -16,6 +16,9 @@ export const generalMessages = {
   kg: 'kg',
   exerciseIs: "You're currently doing",
   thisIsAWarmupSet: 'You are currently doing a warmup set',
+  workoutFinished: 'Your workout for today is finished! Well done!',
+  comeBackIn2Days: 'Come back for your next workout in 2 days time.',
+  readyForNextWorkout: 'I am ready for the next workout, now',
 };
 
 export const exercises = {

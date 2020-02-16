@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 class Finish extends PureComponent {
   static propTypes = {
@@ -22,13 +21,7 @@ class Finish extends PureComponent {
 const mapStateToProps = () => ({ });
 
 const mapDispatchToProps = dispatch => ({
-  onFinish: () => {
-    const history = useHistory();
-    dispatch.workouts.finishWorkout()
-      .then(() => {
-        history.push('/');
-      });
-  },
-});
+  onFinish: dispatch.workouts.finishWorkout,
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Finish);
