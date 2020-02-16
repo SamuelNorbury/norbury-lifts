@@ -14,7 +14,8 @@ export const generalMessages = {
   reps: 'reps',
   weightIs: 'at ',
   kg: 'kg',
-  exerciseIs: "You're currently doing"
+  exerciseIs: "You're currently doing",
+  thisIsAWarmupSet: 'You are currently doing a warmup set',
 };
 
 export const exercises = {

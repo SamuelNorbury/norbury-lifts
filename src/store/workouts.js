@@ -5,6 +5,7 @@ export default (() => {
   const workout = Object.keys(schedule.workouts)[0];
   const exercise = schedule.workouts[workout][variant][0];
   const history = Object.keys(schedule.exercises).reduce((obj, item) => {
+    // eslint-disable-next-line
     obj[item] = Array.from({ length: schedule.historyKeepLength }, () => new Object());
     return obj;
   }, {});

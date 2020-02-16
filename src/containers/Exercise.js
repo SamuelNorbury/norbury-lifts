@@ -9,7 +9,7 @@ class Exercise extends PureComponent {
     exercise: PropTypes.string.isRequired,
     weight: PropTypes.number.isRequired,
     reps: PropTypes.number.isRequired,
-    isWarmup: PropTypes.bool.isRequired,
+    isWarmingUp: PropTypes.bool.isRequired,
     setFormat: PropTypes.shape([
       PropTypes.number.isRequired,
     ]).isRequired,
@@ -23,7 +23,7 @@ class Exercise extends PureComponent {
       weight,
       reps,
       setFormat,
-      isWarmup,
+      isWarmingUp,
     } = this.props;
 
     return (
@@ -32,7 +32,7 @@ class Exercise extends PureComponent {
         exercise={exercise}
         reps={reps}
         weight={weight}
-        isWarmup={isWarmup}
+        isWarmingUp={isWarmingUp}
       />
     );
   }
@@ -43,7 +43,7 @@ const mapStateToProps = state => ({
   weight: state.workouts.weight,
   reps: state.workouts.reps,
   setFormat: state.workouts.setFormat,
-  isWarmup: state.workouts.isWarmup,
+  isWarmingUp: state.workouts.isWarmingUp,
 });
 
 const mapDispatchToProps = dispatch => ({

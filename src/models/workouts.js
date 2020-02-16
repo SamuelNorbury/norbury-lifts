@@ -109,9 +109,11 @@ export default {
       const listOfExercisesInWorkout = schedule.workouts[state.workout][state.variant];
       const exerciseIndex = getTheDamnIndex(listOfExercisesInWorkout, state.exercise);
 
+      console.log(state.set, state.setFormat, state.setFormat.length, exerciseIndex);
       if (state.set + 1 >= state.setFormat.length) {
         if (exerciseIndex + 1 >= listOfExercisesInWorkout.length) {
           // We reached the end of this workout.
+            // TODO how to redirect to a finish page from here?
           return {
             ...state,
             isFinished: true,

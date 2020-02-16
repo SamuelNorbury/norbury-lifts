@@ -10,7 +10,7 @@ class Exercise extends Component {
     exercise: PropTypes.string.isRequired,
     weight: PropTypes.number.isRequired,
     reps: PropTypes.number.isRequired,
-    isWarmup: PropTypes.bool.isRequired,
+    isWarmingUp: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -24,7 +24,6 @@ class Exercise extends Component {
 
     onCompleteSet(success);
 
-    // Handle warmup nicely - needs n+2 index to see next warmup (or do something smarter)
     this.setState({
       responseToPerformance:
         success
@@ -34,9 +33,9 @@ class Exercise extends Component {
   }
 
   renderSubtitle = () => {
-    const { exercise, isWarmup } = this.props;
+    const { exercise, isWarmingUp } = this.props;
 
-    if (isWarmup) {
+    if (isWarmingUp) {
       return (
         <Fragment>
           <span className={`text-${rotateColors()}`}>{generalMessages.thisIsAWarmupSet}</span>
