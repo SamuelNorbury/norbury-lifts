@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { generalMessages } from '../../../constants/messages';
-import { exportJsonToFile } from '../utils/export';
+import { exportJsonToFile } from '../../utils/export';
 
 const ExportProgressButton = props => (
   <Button
@@ -13,5 +14,9 @@ const ExportProgressButton = props => (
     {generalMessages.exportProgress}
   </Button>
 );
+
+ExportProgressButton.propTypes = {
+  workoutHistory: PropTypes.shape({}).isRequired,
+};
 
 export default ExportProgressButton;

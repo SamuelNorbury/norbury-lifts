@@ -19,6 +19,7 @@ export const generalMessages = {
   workoutFinished: 'Your workout for today is finished! Well done!',
   comeBackIn2Days: 'Come back for your next workout in 2 days time.',
   readyForNextWorkout: 'I am ready for the next workout, now',
+  exportProgress: 'Export your progress',
 };
 
 export const exercises = {

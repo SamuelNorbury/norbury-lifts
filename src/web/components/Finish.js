@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import SingleClickComponent from './UI/SingleClick';
 import ExportProgressButton from './UI/ExportProgressButton';
-import ImportProgressButton from './UI/ImportProgressButton';
+// import ImportProgressButton from './UI/ImportProgressButton';
 import { generalMessages } from '../../constants/messages';
 
 class Finish extends PureComponent {
@@ -22,7 +22,7 @@ class Finish extends PureComponent {
   }
 
     render = () => {
-      const { workoutHistory, onClickImport } = this.props;
+      const { workoutHistory } = this.props;
       return (
         <Fragment>
           <SingleClickComponent
@@ -32,7 +32,6 @@ class Finish extends PureComponent {
             buttonText={generalMessages.readyForNextWorkout}
           />
           <ExportProgressButton history={workoutHistory} />
-          <ImportProgressButton onClick={onClickImport} />
         </Fragment>
       );
     }

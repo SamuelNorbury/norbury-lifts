@@ -10,7 +10,7 @@ class Finish extends PureComponent {
 
   render = () => {
     const {
-      Layout, onFinish, history, importProgress,
+      Layout, onFinish, workoutHistory, importProgress,
     } = this.props;
     return (
       <Layout
@@ -23,7 +23,7 @@ class Finish extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  history: state.workouts.history,
+  workoutHistory: state.workouts.history,
 });
 
 const mapDispatchToProps = dispatch => ({
