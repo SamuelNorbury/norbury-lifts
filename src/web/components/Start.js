@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import SingleClickComponent from './UI/SingleClick';
@@ -20,12 +20,24 @@ class Start extends PureComponent {
     history.push(`/${nextPage}`);
   }
 
-  render = () => (
-    <SingleClickComponent
-      onClick={this.handleClick}
-      title={generalMessages.readyForWorkout}
-    />
-  )
+
+    render = () => {
+      const { onClickExport } = this.props;
+      return (
+        <Fragment>
+          <button
+            className="btn btn-primary"
+            onClick={onClickExport}
+          >
+              Export your progress
+          </button>
+          <SingleClickComponent
+            onClick={this.handleClick}
+            title={generalMessages.readyForWorkout}
+          />
+        </Fragment>
+      );
+    }
 }
 
 export default withRouter(Start);
