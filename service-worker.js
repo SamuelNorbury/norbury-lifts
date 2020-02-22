@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/norbury-lifts/precache-manifest.abd8ddce79f48bfa4b8b7b36aa4553cf.js"
+  "/norbury-lifts/precache-manifest.19946e070e98e37c369bd74b1f8d0ca2.js"
 );
 
 workbox.clientsClaim();
