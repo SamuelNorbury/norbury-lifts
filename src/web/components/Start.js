@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import SingleClickComponent from './UI/SingleClick';
 import { generalMessages } from '../../constants/messages';
 
@@ -11,6 +12,7 @@ class Start extends PureComponent {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
+    onClickExport: PropTypes.func.isRequired,
   }
 
 
@@ -25,16 +27,18 @@ class Start extends PureComponent {
       const { onClickExport } = this.props;
       return (
         <Fragment>
-          <button
-            className="btn btn-primary"
-            onClick={onClickExport}
-          >
-              Export your progress
-          </button>
           <SingleClickComponent
             onClick={this.handleClick}
             title={generalMessages.readyForWorkout}
           />
+          <Button
+            color="primary"
+            onClick={onClickExport}
+            size="lg"
+            block
+          >
+              Export your progress
+          </Button>
         </Fragment>
       );
     }
