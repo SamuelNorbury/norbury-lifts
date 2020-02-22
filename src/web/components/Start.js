@@ -1,8 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Button } from 'reactstrap';
 import SingleClickComponent from './UI/SingleClick';
+import ExportProgressButton from './UI/ExportProgressButton';
+import ImportProgressButton from './UI/ImportProgressButton';
 import { generalMessages } from '../../constants/messages';
 
 class Start extends PureComponent {
@@ -13,6 +14,7 @@ class Start extends PureComponent {
       push: PropTypes.func.isRequired,
     }).isRequired,
     onClickExport: PropTypes.func.isRequired,
+    workoutHistory: PropTypes.shape({}).isRequired,
   }
 
 
@@ -24,21 +26,15 @@ class Start extends PureComponent {
 
 
     render = () => {
-      const { onClickExport } = this.props;
+      const { workoutHistory, onClickImport } = this.props;
       return (
         <Fragment>
           <SingleClickComponent
             onClick={this.handleClick}
             title={generalMessages.readyForWorkout}
           />
-          <Button
-            color="primary"
-            onClick={onClickExport}
-            size="lg"
-            block
-          >
-              Export your progress
-          </Button>
+          <ExportProgressButton workoutHistory={workoutHistory} />
+          <ImportProgressButton onClick={onClickImport} />
         </Fragment>
       );
     }

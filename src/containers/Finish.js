@@ -9,19 +9,26 @@ class Finish extends PureComponent {
   }
 
   render = () => {
-    const { Layout, onFinish } = this.props;
+    const {
+      Layout, onFinish, history, importProgress,
+    } = this.props;
     return (
       <Layout
         onClick={onFinish}
+        workoutHistory={workoutHistory}
+        onClickImport={importProgress}
       />
     );
   }
 }
 
-const mapStateToProps = () => ({ });
+const mapStateToProps = state => ({
+  history: state.workouts.history,
+});
 
 const mapDispatchToProps = dispatch => ({
   onFinish: dispatch.workouts.finishWorkout,
-})
+  importProgress: dispatch.workouts.importHistory,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Finish);

@@ -1,4 +1,4 @@
-export function exportJsonToFile(event, json) {
+export function exportJsonToFile(json) {
   const str = JSON.stringify(json);
 
   // Save the file contents as a DataURI

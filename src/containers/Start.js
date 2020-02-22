@@ -7,23 +7,23 @@ class Start extends PureComponent {
   static propTypes = {
     onStart: PropTypes.func.isRequired,
     Layout: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
+    workoutHistory: PropTypes.shape({}).isRequired,
   }
 
   render = () => {
-    const { Layout, onStart, history } = this.props;
+    const { Layout, onStart, workoutHistory } = this.props;
     return (
       <Layout
         onClick={onStart}
         nextPage="warmup"
-        onClickExport={e => exportJsonToFile(e, history)}
+        workoutHistory={workoutHistory}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  history: state.workouts.history,
+  workoutHistory: state.workouts.history,
 });
 
 const mapDispatchToProps = dispatch => ({
