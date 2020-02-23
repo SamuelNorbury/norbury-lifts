@@ -44,7 +44,6 @@ class Exercise extends Component {
     let exerciseText = <span className={`text-${rotateColors()}`}>{exercises[exercise]}</span>;
 
     if (exerciseUrls[exercise]) {
-        console.log(exerciseUrls[exercise]);
       exerciseText = (
         <a href={exerciseUrls[exercise]}>
           {exerciseText}
