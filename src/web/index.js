@@ -21,7 +21,7 @@ const { persistor, store, dispatch } = configureStore();
 const Root = () => (
   <Provider store={store}>
     <PersistGate loading={<Loading />} persistor={persistor}>
-      <Router dispatch={dispatch} store={store}>
+      <Router dispatch={dispatch} store={store} basename="/norbury-lifts">
         <Routes />
       </Router>
     </PersistGate>
