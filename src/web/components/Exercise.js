@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import BinaryClickComponent from './UI/BinaryClick';
 import { generalMessages, exercises } from '../../constants/messages';
+import { exerciseUrls } from '../../constants/urls';
 import { rotateColors } from '../styles/utils';
 
 class Exercise extends Component {
@@ -40,12 +41,23 @@ class Exercise extends Component {
   renderSubtitle = () => {
     const { exercise, isWarmingUp } = this.props;
 
+    let exerciseText = <span className={`text-${rotateColors()}`}>{exercises[exercise]}</span>;
+
+    if (exerciseUrls[exercise]) {
+        console.log(exerciseUrls[exercise]);
+      exerciseText = (
+        <a href={exerciseUrls[exercise]}>
+          {exerciseText}
+        </a>
+      );
+    }
+
     if (isWarmingUp) {
       return (
         <Fragment>
           <span className={`text-${rotateColors()}`}>{generalMessages.exerciseIs}</span>
           {' '}
-          <span className={`text-${rotateColors()}`}>{exercises[exercise]}</span>
+          {exerciseText}
           <br />
           <span className={`text-${rotateColors()}`}>{generalMessages.thisIsAWarmupSet}</span>
         </Fragment>
@@ -56,7 +68,7 @@ class Exercise extends Component {
       <Fragment>
         <span className={`text-${rotateColors()}`}>{generalMessages.exerciseIs}</span>
         {' '}
-        <span className={`text-${rotateColors()}`}>{exercises[exercise]}</span>
+        {exerciseText}
       </Fragment>
     );
   }
@@ -70,7 +82,6 @@ class Exercise extends Component {
     if (isFinished) {
       history.push('/finish');
     }
-
 
     return (
       <BinaryClickComponent
