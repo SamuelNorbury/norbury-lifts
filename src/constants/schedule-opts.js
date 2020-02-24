@@ -34,7 +34,7 @@ export default {
     deadlift: {
       sets: {
         A: [[5]],
-        B: [[8, 8, 8], [10, 10, 10], [12, 12, 12]],
+        B: [[8], [10], [12]],
       },
       increments: 2.5,
       startingWeight: 20,
