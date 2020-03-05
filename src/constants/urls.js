@@ -1,14 +1,14 @@
-export const exerciseUrls = {
+export default {
   squat: 'https://stronglifts.com/squat/',
   overheadPress: 'https://stronglifts.com/overhead-press/',
-  // rearFly: 'Rear Lateral Flys',
-  // lateralRaise: 'Side Lateral Raises',
+  rearFly: 'https://exrx.net/WeightExercises/DeltoidPosterior/DBRearLateralRaise',
+  lateralRaise: 'https://exrx.net/WeightExercises/DeltoidLateral/DBLateralRaise',
   deadlift: 'https://stronglifts.com/deadlift/',
   bentOverRow: 'https://stronglifts.com/barbell-row/',
   chinUp: 'https://stronglifts.com/pullups/',
-  // uprightRow: 'Barbell Upright Row',
+  uprightRow: 'https://exrx.net/WeightExercises/DeltoidLateral/BBUprightRow',
   barbellBenchpress: 'https://stronglifts.com/bench-press/',
-  //skullCrusherSuperSet: 'Skull-Crushers and EZ-Bar Benchpress Super Set',
+  skullCrusherSuperSet: 'https://exrx.net/WeightExercises/Triceps/BBLyingTriExtSC',
   dip: 'https://stronglifts.com/dips/',
-  // inclineBarbellBenchpress: 'Incline Barbell Benchpress',
+  inclineBarbellBenchpress: 'https://exrx.net/WeightExercises/PectoralClavicular/BBInclineBenchPress',
 };
