@@ -1,4 +1,4 @@
-export default {
+export const exerciseUrls = {
   squat: 'https://stronglifts.com/squat/',
   overheadPress: 'https://stronglifts.com/overhead-press/',
   rearFly: 'https://exrx.net/WeightExercises/DeltoidPosterior/DBRearLateralRaise',
