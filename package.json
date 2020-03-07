@@ -46,7 +46,7 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^5.1.2",
     "react-timer-mixin": "^0.13.4",
-    "reactstrap": "^7.1.0",
+    "reactstrap": "8.4.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0"
