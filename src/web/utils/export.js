@@ -10,3 +10,7 @@ export function exportJsonToFile(json) {
   linkElement.setAttribute('download', 'progress.json');
   linkElement.click();
 }
+
+export function importJsonFromFile(file) {
+    console.log(file);
+}

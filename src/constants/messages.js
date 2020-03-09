@@ -20,6 +20,7 @@ export const generalMessages = {
   comeBackIn2Days: 'Come back for your next workout in 2 days time.',
   readyForNextWorkout: 'I am ready for the next workout, now',
   exportProgress: 'Export your progress',
+  importProgress: 'Import your progress',
 };
 
 export const exercises = {
