@@ -1,30 +1,15 @@
 import React from 'react';
 import { generalMessages } from '../../../constants/messages';
-import { importJsonFromFile } from '../../utils/export';
+import { readJsonFromFile } from '../../utils/export';
 
 class ImportProgressButton extends React.Component {
-    handleChange = (e) => {
-      const { onImport } = this.props;
 
-      onImport(importJsonFromFile(this.getSelectedFiles(e.target)));
-    }
-
-    getSelectedFiles(input) {
-      const { multiple } = this.props;
-
-      if (multiple && input.files) {
-        const files = [].slice.call(input.files);
-
-        return files.map(file => file.name).join(', ');
-      }
-
-      if (input.value.indexOf('fakepath') !== -1) {
-        const parts = input.value.split('\\');
-
-        return parts[parts.length - 1];
-      }
-
-      return input.value;
+    handleChangeFile = (e) => {
+        const { onImport } = this.props;
+        readJsonFromFile(e.target.files[0])
+            .then((json) => {
+                onImport(json);
+            });
     }
 
     render() {
@@ -41,7 +26,7 @@ class ImportProgressButton extends React.Component {
             className="custom-file-input"
             id="fileInput"
             style={{ zIndex: 0, cursor: 'pointer' }}
-            onChange={this.handleChange}
+            onChange={this.handleChangeFile}
             accept=".json"
           />
           <label

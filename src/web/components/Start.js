@@ -26,7 +26,7 @@ class Start extends PureComponent {
 
 
     render = () => {
-      const { workoutHistory } = this.props;
+      const { workoutHistory, onImport } = this.props;
       return (
         <Fragment>
           <SingleClickComponent
@@ -34,7 +34,7 @@ class Start extends PureComponent {
             title={generalMessages.readyForWorkout}
           />
           <ExportProgressButton workoutHistory={workoutHistory} />
-          <ImportProgressButton />
+          <ImportProgressButton onImport={onImport} />
         </Fragment>
       );
     }

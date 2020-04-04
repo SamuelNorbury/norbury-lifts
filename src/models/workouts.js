@@ -188,5 +188,10 @@ export default {
         variant: nextVariant,
       };
     },
+
+    importProgress: (state, progress) => ({
+      ...state,
+      history: progress,
+    }),
   },
 };

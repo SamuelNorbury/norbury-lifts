@@ -10,12 +10,15 @@ class Start extends PureComponent {
   }
 
   render = () => {
-    const { Layout, onStart, workoutHistory } = this.props;
+    const {
+      Layout, onStart, onImport, workoutHistory,
+    } = this.props;
     return (
       <Layout
         onClick={onStart}
         nextPage="warmup"
         workoutHistory={workoutHistory}
+        onImport={onImport}
       />
     );
   }
@@ -27,6 +30,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onStart: dispatch.workouts.startWorkout,
+  onImport: dispatch.workouts.importProgress,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Start);
